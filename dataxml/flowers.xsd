@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://example.og/flowers"
+        xmlns:tns="http://example.org/flowers"
+        elementFormDefault="qualified">
+
+    <element name="flowers">
+        <complexType>
+            <sequence>
+                <element ref="tns:flower" minOccurs="1" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="flower" type="tns:flower" abstract="true"/>
+    <element name="potted-flower" type="tns:potted-flower" substitutionGroup="tns:flower"/>
+    <element name="cut-flower" type="tns:cut-flower" substitutionGroup="tns:flower"/>
+
+    <complexType name="flower">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="soil" type="tns:soil"/>
+            <element name="origin" type="tns:origin"/>
+            <element name="visual-parameter" type="tns:visual-parameter"/>
+            <element name="growing-tip" type="tns:growing-tip"/>
+            <element name="multiplying" type="tns:multiplying"/>
+        </sequence>
+        <attribute name="id" type="tns:id" use="required"/>
+    </complexType>
+
+    <complexType name="potted-flower">
+        <complexContent>
+            <extension base="tns:flower">
+                <sequence>
+                    <element name="date-planted" type="date"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="cut-flower">
+        <complexContent>
+            <extension base="tns:flower">
+                <sequence>
+                    <element name="stem-length" type="tns:stem-length"/>
+                    <element name="date-cut" type="date"/>
+                </sequence>
+                <attribute name="decorated" type="boolean" use="optional" default="false"/>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="visual-parameter">
+        <sequence>
+            <element name="stem-color" type="tns:color"/>
+            <element name="leaf-color" type="tns:color"/>
+            <element name="average-size" type="tns:average-size"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="growing-tip">
+        <sequence>
+            <element name="temperature" type="tns:temperature"/>
+            <element name="light" type="boolean"/>
+            <element name="watering" type="tns:watering"/>
+        </sequence>
+    </complexType>
+
+    <simpleType name="soil">
+        <restriction base="string">
+            <enumeration value="podzolic"/>
+            <enumeration value="sod-podzolic"/>
+            <enumeration value="gley"/>
+            <enumeration value="ground"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="origin">
+        <restriction base="string">
+            <enumeration value="Asia"/>
+            <enumeration value="Africa"/>
+            <enumeration value="Europe"/>
+            <enumeration value="North America"/>
+            <enumeration value="South America"/>
+            <enumeration value="Australia"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="color">
+        <restriction base="string">
+            <enumeration value="white"/>
+            <enumeration value="red"/>
+            <enumeration value="yellow"/>
+            <enumeration value="green"/>
+            <enumeration value="cyan"/>
+            <enumeration value="blue"/>
+            <enumeration value="magenta"/>
+            <enumeration value="alternative"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="average-size">
+        <restriction base="int">
+            <minInclusive value="5"/>
+            <maxInclusive value="100"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="temperature">
+        <restriction base="int">
+            <minInclusive value="5"/>
+            <maxInclusive value="35"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="watering">
+        <restriction base="int">
+            <minInclusive value="10"/>
+            <maxInclusive value="1000"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="multiplying">
+        <restriction base="string">
+            <enumeration value="leaf"/>
+            <enumeration value="cutting"/>
+            <enumeration value="seed"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="stem-length">
+        <restriction base="int">
+            <minInclusive value="15"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="id">
+        <restriction base="ID">
+            <pattern value="id\d+"/>
+        </restriction>
+    </simpleType>
+
+</schema>

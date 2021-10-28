@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flowers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://example.org/flowers"
+         xsi:schemaLocation="http://www.example.org/flowers flowers.xsd">
+
+    <cut-flower id="id1" decorated="true">
+        <name>Chrysanthemum</name>
+        <soil>ground</soil>
+        <origin>Europe</origin>
+        <visual-parameter>
+            <stem-color>green</stem-color>
+            <leaf-color>green</leaf-color>
+            <average-size>60</average-size>
+        </visual-parameter>
+        <growing-tip>
+            <temperature>15</temperature>
+            <light>true</light>
+            <watering>500</watering>
+        </growing-tip>
+        <multiplying>seed</multiplying>
+        <stem-length>45</stem-length>
+        <date-cut>2021-10-28</date-cut>
+    </cut-flower>
+
+</flowers>
