@@ -82,11 +82,11 @@ public class FlowerHandler extends DefaultHandler {
                 }
                 case DATE_CUT -> {
                     //CutFlower cutFlower = (CutFlower) current;
-                    currentCutFlower.setDateCut(LocalDate.parse(data));
+                    currentCutFlower.setCutDate(LocalDate.parse(data));
                 }
                 case DATE_PLANTED -> {
                     PottedFlower pottedFlower = (PottedFlower) current;
-                    pottedFlower.setDatePlanted(LocalDate.parse(data));
+                    pottedFlower.setPlantingDate(LocalDate.parse(data));
 
                 }
                 default -> throw new EnumConstantNotPresentException(currentXmlTag.getDeclaringClass(), currentXmlTag.name());

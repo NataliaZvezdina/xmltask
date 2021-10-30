@@ -6,16 +6,16 @@ import java.util.Objects;
 public class CutFlower extends Flower {
 
     private int stemLength;
-    private LocalDate dateCut;
+    private LocalDate cutDate;
     private boolean decorated;
 
     public CutFlower() {}
 
     public CutFlower(String id, String name, Soil soil, Origin origin, VisualParameter visualParameter,
-                     GrowingTip growingTip, Multiplying multiplying, int stemLength, LocalDate dateCut, boolean decorated) {
+                     GrowingTip growingTip, Multiplying multiplying, int stemLength, LocalDate cutDate, boolean decorated) {
         super(id, name, soil, origin, visualParameter, growingTip, multiplying);
         this.stemLength = stemLength;
-        this.dateCut = dateCut;
+        this.cutDate = cutDate;
         this.decorated = decorated;
     }
 
@@ -27,12 +27,12 @@ public class CutFlower extends Flower {
         this.stemLength = stemLength;
     }
 
-    public LocalDate getDateCut() {
-        return dateCut;
+    public LocalDate getCutDate() {
+        return cutDate;
     }
 
-    public void setDateCut(LocalDate dateCut) {
-        this.dateCut = dateCut;
+    public void setCutDate(LocalDate cutDate) {
+        this.cutDate = cutDate;
     }
 
     public boolean isDecorated() {
@@ -48,13 +48,21 @@ public class CutFlower extends Flower {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         CutFlower cutFlower = (CutFlower) o;
-        return stemLength == cutFlower.stemLength && decorated == cutFlower.decorated && dateCut.equals(cutFlower.dateCut);
+
+        if (stemLength != cutFlower.stemLength) return false;
+        if (decorated != cutFlower.decorated) return false;
+        return cutDate != null ? cutDate.equals(cutFlower.cutDate) : cutFlower.cutDate == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), stemLength, dateCut, decorated);
+        int result = super.hashCode();
+        result = 31 * result + stemLength;
+        result = 31 * result + (cutDate != null ? cutDate.hashCode() : 0);
+        result = 31 * result + (decorated ? 1 : 0);
+        return result;
     }
 
     @Override
@@ -71,9 +79,9 @@ public class CutFlower extends Flower {
         sb.append("\n\tLight: ").append(getGrowingTip().isLight());
         sb.append("\n\tWatering: ").append(getGrowingTip().getWatering());
         sb.append("\nMultiplying: ").append(getMultiplying());
-        sb.append("\nCut date: ").append(dateCut);
-        sb.append("\nDecorated: ").append(decorated);
-        sb.append("\nStem length: ").append(stemLength);
+        sb.append("\nCut date: ").append(getCutDate());
+        sb.append("\nDecorated: ").append(isDecorated());
+        sb.append("\nStem length: ").append(getStemLength());
 
         return sb.toString();
     }

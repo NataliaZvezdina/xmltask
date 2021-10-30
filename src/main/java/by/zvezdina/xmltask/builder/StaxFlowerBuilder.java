@@ -12,10 +12,10 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.HashSet;
+
 
 public class StaxFlowerBuilder extends AbstractFlowerBuilder {
     private static final Logger logger = LogManager.getLogger();
@@ -72,7 +72,7 @@ public class StaxFlowerBuilder extends AbstractFlowerBuilder {
                             case GROWING_TIP -> cutFlower.setGrowingTip(getXMLGrowingTip(reader));
                             case MULTIPLYING -> cutFlower.setMultiplying(Multiplying.valueOf(convertToXMLTag(getXMLText(reader))));
                             case STEM_LENGTH -> cutFlower.setStemLength(Integer.parseInt(getXMLText(reader)));
-                            case DATE_CUT -> cutFlower.setDateCut(LocalDate.parse(getXMLText(reader)));
+                            case DATE_CUT -> cutFlower.setCutDate(LocalDate.parse(getXMLText(reader)));
                         }
                         break;
                     case XMLStreamConstants.END_ELEMENT:

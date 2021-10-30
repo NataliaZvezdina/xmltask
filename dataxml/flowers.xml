@@ -22,4 +22,22 @@
         <date-cut>2021-10-28</date-cut>
     </cut-flower>
 
+    <potted-flower id="id2">
+        <name>Kalanchoe manginii</name>
+        <soil>gley</soil>
+        <origin>Africa</origin>
+        <visual-parameter>
+            <stem-color>magenta</stem-color>
+            <leaf-color>green</leaf-color>
+            <average-size>30</average-size>
+        </visual-parameter>
+        <growing-tip>
+            <temperature>20</temperature>
+            <light>true</light>
+            <watering>400</watering>
+        </growing-tip>
+        <multiplying>cutting</multiplying>
+        <date-planted>2021-03-10</date-planted>
+    </potted-flower>
+
 </flowers>
