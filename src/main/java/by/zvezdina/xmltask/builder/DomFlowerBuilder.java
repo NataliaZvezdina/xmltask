@@ -20,6 +20,8 @@ import java.time.LocalDate;
 public class DomFlowerBuilder extends AbstractFlowerBuilder {
     private static final Logger logger = LogManager.getLogger();
     private DocumentBuilder documentBuilder;
+    private static final String CHAR_TO_REPLACE = "[-\\s]";
+    private static final String NEW_CHAR = "_";
 
     public DomFlowerBuilder() throws FlowerXmlException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -33,6 +35,7 @@ public class DomFlowerBuilder extends AbstractFlowerBuilder {
 
     @Override
     public void buildSetFlowers(String filename) throws FlowerXmlException {
+        logger.log(Level.INFO, "Start parsing xml file " + filename);
         Document document;
         try {
             document = documentBuilder.parse(filename);
@@ -42,14 +45,15 @@ public class DomFlowerBuilder extends AbstractFlowerBuilder {
             for (int i = 0; i < cutFlowersList.getLength(); i++) {
                 Element cutFlowerElement = (Element) cutFlowersList.item(i);
                 Flower cutFlower = buildCutFlower(cutFlowerElement);
+                logger.log(Level.INFO, "Built cut flower: " + cutFlower);
                 flowers.add(cutFlower);
             }
             for (int i = 0; i< pottedFlowersList.getLength(); i++) {
                 Element pottedFlowerElement = (Element) pottedFlowersList.item(i);
                 Flower pottedFlower = buildPottedFlower(pottedFlowerElement);
+                logger.log(Level.INFO, "Built potted flower: " + pottedFlower);
                 flowers.add(pottedFlower);
             }
-
         } catch (IOException | SAXException e) {
             logger.log(Level.ERROR, "IO error or parse error occur with xml file " + filename);
             throw new FlowerXmlException("IO error or parse error occur with xml file " + filename, e);
@@ -58,7 +62,7 @@ public class DomFlowerBuilder extends AbstractFlowerBuilder {
 
     private  Flower buildCutFlower(Element flowerElement) {
         CutFlower cutFlower = new CutFlower();
-        cutFlower.setId(flowerElement.getAttribute(FlowerXmlTag.ID.toString()));
+        cutFlower.setFlowerId(flowerElement.getAttribute(FlowerXmlTag.ID.toString()));
         String attributeDecorated = flowerElement.getAttribute(FlowerXmlTag.DECORATED.toString());
         if (attributeDecorated != null) {
             cutFlower.setDecorated(Boolean.parseBoolean(attributeDecorated));
@@ -80,7 +84,7 @@ public class DomFlowerBuilder extends AbstractFlowerBuilder {
         growingTip.setWatering(Integer.parseInt(getElementTextContent(growingTipElement, FlowerXmlTag.WATERING.toString())));
 
         cutFlower.setMultiplying(Multiplying.valueOf(convertToXMLTag(getElementTextContent(flowerElement, FlowerXmlTag.MULTIPLYING.toString()))));
-        cutFlower.setCutDate(LocalDate.parse(getElementTextContent(flowerElement, FlowerXmlTag.DATE_CUT.toString())));
+        cutFlower.setCutDate(LocalDate.parse(getElementTextContent(flowerElement, FlowerXmlTag.CUT_DATE.toString())));
         cutFlower.setStemLength(Integer.parseInt(getElementTextContent(flowerElement, FlowerXmlTag.STEM_LENGTH.toString())));
 
         return cutFlower;
@@ -88,7 +92,7 @@ public class DomFlowerBuilder extends AbstractFlowerBuilder {
 
     private  Flower buildPottedFlower(Element flowerElement) {
         PottedFlower pottedFlower = new PottedFlower();
-        pottedFlower.setId(flowerElement.getAttribute(FlowerXmlTag.ID.toString()));
+        pottedFlower.setFlowerId(flowerElement.getAttribute(FlowerXmlTag.ID.toString()));
         pottedFlower.setName(getElementTextContent(flowerElement, FlowerXmlTag.NAME.toString()));
         pottedFlower.setOrigin(Origin.valueOf(convertToXMLTag(getElementTextContent(flowerElement, FlowerXmlTag.ORIGIN.toString()))));
         pottedFlower.setSoil(Soil.valueOf(convertToXMLTag(getElementTextContent(flowerElement, FlowerXmlTag.SOIL.toString()))));
@@ -106,7 +110,7 @@ public class DomFlowerBuilder extends AbstractFlowerBuilder {
         growingTip.setWatering(Integer.parseInt(getElementTextContent(growingTipElement, FlowerXmlTag.WATERING.toString())));
 
         pottedFlower.setMultiplying(Multiplying.valueOf(convertToXMLTag(getElementTextContent(flowerElement, FlowerXmlTag.MULTIPLYING.toString()))));
-        pottedFlower.setPlantingDate(LocalDate.parse(getElementTextContent(flowerElement, FlowerXmlTag.DATE_PLANTED.toString())));
+        pottedFlower.setPlantingDate(LocalDate.parse(getElementTextContent(flowerElement, FlowerXmlTag.PLANTING_DATE.toString())));
 
         return pottedFlower;
     }
@@ -120,6 +124,6 @@ public class DomFlowerBuilder extends AbstractFlowerBuilder {
 
     private String convertToXMLTag(String name) {
         return name.toUpperCase()
-                .replaceAll("-", "_");
+                .replaceAll(CHAR_TO_REPLACE, NEW_CHAR);
     }
 }

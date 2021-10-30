@@ -12,11 +12,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
-import java.util.Set;
 
 public class SaxFlowerBuilder extends AbstractFlowerBuilder {
     private static final Logger logger = LogManager.getLogger();
-    //private Set<Flower> flowers;
     private FlowerHandler handler = new FlowerHandler();
     private XMLReader reader;
 
@@ -32,7 +30,6 @@ public class SaxFlowerBuilder extends AbstractFlowerBuilder {
         reader.setErrorHandler(new FlowerErrorHandler());
         reader.setContentHandler(handler);
     }
-
 
     @Override
     public void buildSetFlowers(String filename) throws FlowerXmlException {

@@ -11,9 +11,9 @@ public class CutFlower extends Flower {
 
     public CutFlower() {}
 
-    public CutFlower(String id, String name, Soil soil, Origin origin, VisualParameter visualParameter,
+    public CutFlower(String flowerId, String name, Soil soil, Origin origin, VisualParameter visualParameter,
                      GrowingTip growingTip, Multiplying multiplying, int stemLength, LocalDate cutDate, boolean decorated) {
-        super(id, name, soil, origin, visualParameter, growingTip, multiplying);
+        super(flowerId, name, soil, origin, visualParameter, growingTip, multiplying);
         this.stemLength = stemLength;
         this.cutDate = cutDate;
         this.decorated = decorated;
@@ -69,7 +69,7 @@ public class CutFlower extends Flower {
     public String toString() {
         final StringBuilder sb = new StringBuilder("\nFlower: cut flower");
         sb.append("\nName: ").append(getName());
-        sb.append("\nId: ").append(getId());
+        sb.append("\nId: ").append(getFlowerId());
         sb.append("\nOrigin: ").append(getOrigin());
         sb.append("\nSoil: ").append(getSoil());
         sb.append("\nVisual parameters: \n\tStem color: ").append(getVisualParameter().getStemColor());
@@ -81,7 +81,7 @@ public class CutFlower extends Flower {
         sb.append("\nMultiplying: ").append(getMultiplying());
         sb.append("\nCut date: ").append(getCutDate());
         sb.append("\nDecorated: ").append(isDecorated());
-        sb.append("\nStem length: ").append(getStemLength());
+        sb.append("\nStem length: ").append(getStemLength()).append("\\n");
 
         return sb.toString();
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-        targetNamespace="http://example.og/flowers"
+        targetNamespace="http://example.org/flowers"
         xmlns:tns="http://example.org/flowers"
         elementFormDefault="qualified">
 
@@ -32,7 +32,7 @@
         <complexContent>
             <extension base="tns:flower">
                 <sequence>
-                    <element name="date-planted" type="date"/>
+                    <element name="planting-date" type="date"/>
                 </sequence>
             </extension>
         </complexContent>
@@ -43,7 +43,7 @@
             <extension base="tns:flower">
                 <sequence>
                     <element name="stem-length" type="tns:stem-length"/>
-                    <element name="date-cut" type="date"/>
+                    <element name="cut-date" type="date"/>
                 </sequence>
                 <attribute name="decorated" type="boolean" use="optional" default="false"/>
             </extension>

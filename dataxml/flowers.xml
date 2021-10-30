@@ -6,7 +6,7 @@
     <cut-flower id="id1" decorated="true">
         <name>Chrysanthemum</name>
         <soil>ground</soil>
-        <origin>Europe</origin>
+        <origin>South America</origin>
         <visual-parameter>
             <stem-color>green</stem-color>
             <leaf-color>green</leaf-color>
@@ -19,7 +19,7 @@
         </growing-tip>
         <multiplying>seed</multiplying>
         <stem-length>45</stem-length>
-        <date-cut>2021-10-28</date-cut>
+        <cut-date>2021-10-28</cut-date>
     </cut-flower>
 
     <potted-flower id="id2">
@@ -37,7 +37,7 @@
             <watering>400</watering>
         </growing-tip>
         <multiplying>cutting</multiplying>
-        <date-planted>2021-03-10</date-planted>
+        <planting-date>2021-03-10</planting-date>
     </potted-flower>
 
 </flowers>

@@ -20,14 +20,16 @@ import java.time.LocalDate;
 public class StaxFlowerBuilder extends AbstractFlowerBuilder {
     private static final Logger logger = LogManager.getLogger();
     private XMLInputFactory inputFactory;
+    private static final String CHAR_TO_REPLACE = "[-\\s]";
+    private static final String NEW_CHAR = "_";
 
     public StaxFlowerBuilder() {
         inputFactory = XMLInputFactory.newInstance();
-        //flowers = new HashSet<>();
     }
 
     @Override
     public void buildSetFlowers(String filename) throws FlowerXmlException {
+        logger.log(Level.INFO, "Start parsing xml file " + filename);
         XMLStreamReader reader;
         String name;
         try (FileInputStream inputStream = new FileInputStream(new File(filename))) {
@@ -38,9 +40,11 @@ public class StaxFlowerBuilder extends AbstractFlowerBuilder {
                     name = reader.getLocalName();
                     if (name.equals(FlowerXmlTag.CUT_FLOWER.toString())) {
                         CutFlower cutFlower = buildCutFlower(reader);
+                        logger.log(Level.INFO, "Built cut flower: " + cutFlower);
                         flowers.add(cutFlower);
                     } else if (name.equals(FlowerXmlTag.POTTED_FLOWER.toString())) {
                         PottedFlower pottedFlower = buildPottedFlower(reader);
+                        logger.log(Level.INFO, "Built potted flower: " + pottedFlower);
                         flowers.add(pottedFlower);
                     }
                 }
@@ -53,9 +57,11 @@ public class StaxFlowerBuilder extends AbstractFlowerBuilder {
 
     private CutFlower buildCutFlower(XMLStreamReader reader) throws FlowerXmlException {
         CutFlower cutFlower = new CutFlower();
-        cutFlower.setId(reader.getAttributeValue(null, FlowerXmlTag.ID.toString()));
-        boolean decorated = Boolean.parseBoolean(reader.getAttributeValue(null, FlowerXmlTag.DECORATED.toString()));
-        cutFlower.setDecorated(decorated);
+        cutFlower.setFlowerId(reader.getAttributeValue(null, FlowerXmlTag.ID.toString()));
+        String attributeDecorated = reader.getAttributeValue(null, FlowerXmlTag.DECORATED.toString());
+        if (attributeDecorated != null) {
+            cutFlower.setDecorated(Boolean.parseBoolean(attributeDecorated));
+        }
 
         String name;
         try {
@@ -72,7 +78,7 @@ public class StaxFlowerBuilder extends AbstractFlowerBuilder {
                             case GROWING_TIP -> cutFlower.setGrowingTip(getXMLGrowingTip(reader));
                             case MULTIPLYING -> cutFlower.setMultiplying(Multiplying.valueOf(convertToXMLTag(getXMLText(reader))));
                             case STEM_LENGTH -> cutFlower.setStemLength(Integer.parseInt(getXMLText(reader)));
-                            case DATE_CUT -> cutFlower.setCutDate(LocalDate.parse(getXMLText(reader)));
+                            case CUT_DATE -> cutFlower.setCutDate(LocalDate.parse(getXMLText(reader)));
                         }
                         break;
                     case XMLStreamConstants.END_ELEMENT:
@@ -88,10 +94,39 @@ public class StaxFlowerBuilder extends AbstractFlowerBuilder {
         throw new FlowerXmlException("Unknown element in tag <cut-flower>");
     }
 
-    private PottedFlower buildPottedFlower(XMLStreamReader reader) {
+    private PottedFlower buildPottedFlower(XMLStreamReader reader) throws FlowerXmlException {
         PottedFlower pottedFlower = new PottedFlower();
-
-        return pottedFlower;
+        pottedFlower.setFlowerId(reader.getAttributeValue(null, FlowerXmlTag.ID.toString()));
+        String name;
+        try {
+            while (reader.hasNext()) {
+                int type = reader.next();
+                switch (type) {
+                    case XMLStreamConstants.START_ELEMENT:
+                        name = reader.getLocalName();
+                        switch (FlowerXmlTag.valueOf(convertToXMLTag(name))) {
+                            case NAME -> pottedFlower.setName(getXMLText(reader));
+                            case SOIL -> pottedFlower.setSoil(Soil.valueOf(convertToXMLTag(getXMLText(reader))));
+                            case ORIGIN -> pottedFlower.setOrigin(Origin.valueOf(convertToXMLTag(getXMLText(reader))));
+                            case VISUAL_PARAMETER -> pottedFlower.setVisualParameter(getXMLVisualParameter(reader));
+                            case GROWING_TIP -> pottedFlower.setGrowingTip(getXMLGrowingTip(reader));
+                            case MULTIPLYING -> pottedFlower.setMultiplying(Multiplying.valueOf(convertToXMLTag(getXMLText(reader))));
+                            case PLANTING_DATE -> pottedFlower.setPlantingDate(LocalDate.parse(getXMLText(reader)));
+                        }
+                        break;
+                    case XMLStreamConstants.END_ELEMENT:
+                        name = reader.getLocalName();
+                        if (FlowerXmlTag.valueOf(convertToXMLTag(name)) == FlowerXmlTag.POTTED_FLOWER) {
+                            return pottedFlower;
+                        }
+                }
+            }
+        } catch (XMLStreamException e) {
+            logger.log(Level.ERROR, "Error while parsing <potted-flower> tag");
+            throw new FlowerXmlException("Error while parsing <potted-flower> tag", e);
+        }
+        logger.log(Level.ERROR, "Unknown element in tag <potted-flower> tag");
+        throw new FlowerXmlException("Unknown element in tag <potted-flower>");
     }
 
     private VisualParameter getXMLVisualParameter(XMLStreamReader reader) throws FlowerXmlException {
@@ -167,6 +202,6 @@ public class StaxFlowerBuilder extends AbstractFlowerBuilder {
 
     private String convertToXMLTag(String name) {
         return name.toUpperCase()
-                .replaceAll("-", "_");
+                .replaceAll(CHAR_TO_REPLACE, NEW_CHAR);
     }
 }

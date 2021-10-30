@@ -1,0 +1,35 @@
+2021-10-31 01:14:00 [main] [buildSetFlowers] [38] INFO  by.zvezdina.xmltask.builder.DomFlowerBuilder - Start parsing xml file dataxml/flowers.xml
+2021-10-31 01:14:00 [main] [buildSetFlowers] [48] INFO  by.zvezdina.xmltask.builder.DomFlowerBuilder - Built cut flower: 
+Flower: cut flower
+Name: Chrysanthemum
+Id: id1
+Origin: SOUTH_AMERICA
+Soil: GROUND
+Visual parameters: 
+	Stem color: GREEN
+	Leaf color: GREEN
+	Average size: 60
+Growing tips: 
+	Temperature: 15
+	Light: true
+	Watering: 500
+Multiplying: SEED
+Cut date: 2021-10-28
+Decorated: true
+Stem length: 45
+2021-10-31 01:14:00 [main] [buildSetFlowers] [54] INFO  by.zvezdina.xmltask.builder.DomFlowerBuilder - Built potted flower: 
+Flower: potted flower
+Name: Kalanchoe manginii
+Id: id2
+Origin: AFRICA
+Soil: GLEY
+Visual parameters: 
+	Stem color: MAGENTA
+	Leaf color: GREEN
+	Average size: 30
+Growing tips: 
+	Temperature: 20
+	Light: true
+	Watering: 400
+Multiplying: CUTTING
+Planting date: 2021-03-10

@@ -8,9 +8,9 @@ public class PottedFlower extends Flower {
 
     public PottedFlower() {}
 
-    public PottedFlower(String id, String name, Soil soil, Origin origin, VisualParameter visualParameter,
+    public PottedFlower(String flowerId, String name, Soil soil, Origin origin, VisualParameter visualParameter,
                         GrowingTip growingTip, Multiplying multiplying, LocalDate plantingDate) {
-        super(id, name, soil, origin, visualParameter, growingTip, multiplying);
+        super(flowerId, name, soil, origin, visualParameter, growingTip, multiplying);
         this.plantingDate = plantingDate;
     }
 
@@ -44,7 +44,7 @@ public class PottedFlower extends Flower {
     public String toString() {
         final StringBuilder sb = new StringBuilder("\nFlower: potted flower");
         sb.append("\nName: ").append(getName());
-        sb.append("\nId: ").append(getId());
+        sb.append("\nId: ").append(getFlowerId());
         sb.append("\nOrigin: ").append(getOrigin());
         sb.append("\nSoil: ").append(getSoil());
         sb.append("\nVisual parameters: \n\tStem color: ").append(getVisualParameter().getStemColor());
@@ -54,7 +54,7 @@ public class PottedFlower extends Flower {
         sb.append("\n\tLight: ").append(getGrowingTip().isLight());
         sb.append("\n\tWatering: ").append(getGrowingTip().getWatering());
         sb.append("\nMultiplying: ").append(getMultiplying());
-        sb.append("\nPlanting date: ").append(getPlantingDate());
+        sb.append("\nPlanting date: ").append(getPlantingDate()).append("\\n");
 
         return sb.toString();
     }

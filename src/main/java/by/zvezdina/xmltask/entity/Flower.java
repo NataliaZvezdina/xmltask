@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public abstract class Flower {
 
-    private String id;
+    private String flowerId;
     private String name;
     private Soil soil;
     private Origin origin;
@@ -14,9 +14,9 @@ public abstract class Flower {
 
     public Flower() {}
 
-    public Flower(String id, String name, Soil soil, Origin origin, VisualParameter visualParameter,
+    public Flower(String flowerId, String name, Soil soil, Origin origin, VisualParameter visualParameter,
                   GrowingTip growingTip, Multiplying multiplying) {
-        this.id = id;
+        this.flowerId = flowerId;
         this.name = name;
         this.soil = soil;
         this.origin = origin;
@@ -25,12 +25,12 @@ public abstract class Flower {
         this.multiplying = multiplying;
     }
 
-    public String getId() {
-        return id;
+    public String getFlowerId() {
+        return flowerId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setFlowerId(String flowerId) {
+        this.flowerId = flowerId;
     }
 
     public String getName() {
@@ -85,25 +85,35 @@ public abstract class Flower {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Flower flower = (Flower) o;
-        return id.equals(flower.id) &&
-                name.equals(flower.name) &&
-                soil == flower.soil &&
-                origin == flower.origin &&
-                visualParameter.equals(flower.visualParameter) &&
-                growingTip.equals(flower.growingTip) &&
-                multiplying == flower.multiplying;
+
+        if (flowerId != null ? !flowerId.equals(flower.flowerId) : flower.flowerId != null) return false;
+        if (name != null ? !name.equals(flower.name) : flower.name != null) return false;
+        if (soil != flower.soil) return false;
+        if (origin != flower.origin) return false;
+        if (visualParameter != null ? !visualParameter.equals(flower.visualParameter) : flower.visualParameter != null)
+            return false;
+        if (growingTip != null ? !growingTip.equals(flower.growingTip) : flower.growingTip != null) return false;
+        return multiplying == flower.multiplying;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, soil, origin, visualParameter, growingTip, multiplying);
+        int result = flowerId != null ? flowerId.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (soil != null ? soil.hashCode() : 0);
+        result = 31 * result + (origin != null ? origin.hashCode() : 0);
+        result = 31 * result + (visualParameter != null ? visualParameter.hashCode() : 0);
+        result = 31 * result + (growingTip != null ? growingTip.hashCode() : 0);
+        result = 31 * result + (multiplying != null ? multiplying.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
         return "Flower{" +
-                "id='" + id + '\'' +
+                "id='" + flowerId + '\'' +
                 ", name='" + name + '\'' +
                 ", soil=" + soil +
                 ", origin=" + origin +
