@@ -1,6 +1,7 @@
 import by.zvezdina.xmltask.builder.DomFlowerBuilder;
 import by.zvezdina.xmltask.builder.SaxFlowerBuilder;
 import by.zvezdina.xmltask.builder.StaxFlowerBuilder;
+import by.zvezdina.xmltask.entity.Soil;
 import by.zvezdina.xmltask.exception.FlowerXmlException;
 
 public class Main {
@@ -9,7 +10,7 @@ public class Main {
         SaxFlowerBuilder saxBuilder = new SaxFlowerBuilder();
         saxBuilder.buildSetFlowers("dataxml/flowers.xml");
         System.out.println(saxBuilder.getFlowers());
-////
+//////
 //        StaxFlowerBuilder staxBuilder = new StaxFlowerBuilder();
 //        staxBuilder.buildSetFlowers("dataxml/flowers.xml");
 //        System.out.println(staxBuilder.getFlowers());
@@ -17,6 +18,8 @@ public class Main {
 //        DomFlowerBuilder domBuilder = new DomFlowerBuilder();
 //        domBuilder.buildSetFlowers("dataxml/flowers.xml");
 //        System.out.println(domBuilder.getFlowers());
+
+
 
     }
 }

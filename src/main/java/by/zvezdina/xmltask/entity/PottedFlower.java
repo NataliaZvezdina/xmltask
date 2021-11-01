@@ -54,7 +54,7 @@ public class PottedFlower extends Flower {
         sb.append("\n\tLight: ").append(getGrowingTip().isLight());
         sb.append("\n\tWatering: ").append(getGrowingTip().getWatering());
         sb.append("\nMultiplying: ").append(getMultiplying());
-        sb.append("\nPlanting date: ").append(getPlantingDate()).append("\\n");
+        sb.append("\nPlanting date: ").append(getPlantingDate()).append("\n");
 
         return sb.toString();
     }

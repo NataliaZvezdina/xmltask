@@ -1,0 +1,34 @@
+2021-10-31 02:13:28 [main] [endElement] [69] INFO  by.zvezdina.xmltask.builder.FlowerHandler - Built cut flower: 
+Flower: cut flower
+Name: Chrysanthemum
+Id: id1
+Origin: null
+Soil: GROUND
+Visual parameters: 
+	Stem color: GREEN
+	Leaf color: GREEN
+	Average size: 60
+Growing tips: 
+	Temperature: 15
+	Light: true
+	Watering: 500
+Multiplying: SEED
+Cut date: 2021-10-28
+Decorated: true
+Stem length: 45\n
+2021-10-31 02:13:28 [main] [endElement] [66] INFO  by.zvezdina.xmltask.builder.FlowerHandler - Built potted flower: 
+Flower: potted flower
+Name: null
+Id: id2
+Origin: null
+Soil: null
+Visual parameters: 
+	Stem color: null
+	Leaf color: null
+	Average size: 0
+Growing tips: 
+	Temperature: 0
+	Light: false
+	Watering: 0
+Multiplying: null
+Planting date: 2021-03-10\n

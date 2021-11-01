@@ -1,0 +1,2 @@
+2021-11-01 10:26:49 [main] [endElement] [70] INFO  by.zvezdina.xmltask.builder.FlowerHandler - Built cut flower: null
+2021-11-01 10:26:49 [main] [endElement] [67] INFO  by.zvezdina.xmltask.builder.FlowerHandler - Built potted flower: null

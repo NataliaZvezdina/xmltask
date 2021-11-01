@@ -39,19 +39,20 @@ public class FlowerHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
         if (ELEMENT_CUT_FLOWER.equals(qName)) {
-            currentCutFlower = new CutFlower();
+            current = new CutFlower();
             String id = attributes.getValue(FlowerXmlTag.ID.toString());
-            currentCutFlower.setFlowerId(id);
+            current.setFlowerId(id);
 
             String decoratedValue = attributes.getValue(FlowerXmlTag.DECORATED.toString());
             if (decoratedValue != null) {
                 boolean decorated = Boolean.parseBoolean(decoratedValue);
+                CutFlower currentCutFlower = (CutFlower) current;
                 currentCutFlower.setDecorated(decorated);
             }
         } else if (ELEMENT_POTTED_FLOWER.equals(qName)) {
-            currentPottedFlower = new PottedFlower();
+            current = new PottedFlower();
             String id = attributes.getValue(FlowerXmlTag.ID.toString());
-            currentPottedFlower.setFlowerId(id);
+            current.setFlowerId(id);
         } else {
             FlowerXmlTag temp = FlowerXmlTag.valueOf(qName.toUpperCase().replaceAll(CHAR_TO_REPLACE, NEW_CHAR));
             if (withText.contains(temp)) {
@@ -62,36 +63,47 @@ public class FlowerHandler extends DefaultHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) {
-        if (ELEMENT_POTTED_FLOWER.equals(qName)) {
-            logger.log(Level.INFO, "Built potted flower: " + currentPottedFlower);
-            flowers.add(currentPottedFlower);
-        } else if (ELEMENT_CUT_FLOWER.equals(qName)) {
-            logger.log(Level.INFO, "Built cut flower: " + currentCutFlower);
-            flowers.add(currentCutFlower);
+        if (ELEMENT_POTTED_FLOWER.equals(qName) || ELEMENT_CUT_FLOWER.equals(qName)) {
+            logger.log(Level.INFO, "Built flower: " + current);
+            flowers.add(current);
         }
     }
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
-        String data = new String(ch, start, length).strip();
+        String data = new String(ch, start, length);
         if (currentXmlTag != null) {
             switch (currentXmlTag) {
-                case NAME -> currentCutFlower.setName(data);
-                case SOIL -> currentCutFlower.setSoil(Soil.valueOf(data.toUpperCase().replaceAll(CHAR_TO_REPLACE, NEW_CHAR)));
-                case ORIGIN -> currentCutFlower.setOrigin(Origin.valueOf(data.toUpperCase().replaceAll(CHAR_TO_REPLACE, NEW_CHAR)));
-                case STEM_COLOR -> currentCutFlower.getVisualParameter().setStemColor(Color.valueOf(data.toUpperCase().replaceAll(CHAR_TO_REPLACE, NEW_CHAR)));
-                case LEAF_COLOR -> currentCutFlower.getVisualParameter().setLeafColor(Color.valueOf(data.toUpperCase().replaceAll(CHAR_TO_REPLACE, NEW_CHAR)));
-                case AVERAGE_SIZE -> currentCutFlower.getVisualParameter().setAverageSize(Integer.parseInt(data));
-                case TEMPERATURE -> currentCutFlower.getGrowingTip().setTemperature(Integer.parseInt(data));
-                case LIGHT -> currentCutFlower.getGrowingTip().setLight(Boolean.parseBoolean(data));
-                case WATERING -> currentCutFlower.getGrowingTip().setWatering(Integer.parseInt(data));
-                case MULTIPLYING -> currentCutFlower.setMultiplying(Multiplying.valueOf(data.toUpperCase().replaceAll(CHAR_TO_REPLACE, NEW_CHAR)));
-                case STEM_LENGTH -> currentCutFlower.setStemLength(Integer.parseInt(data));
-                case CUT_DATE -> currentCutFlower.setCutDate(LocalDate.parse(data));
-                case PLANTING_DATE -> currentPottedFlower.setPlantingDate(LocalDate.parse(data));
+                case NAME -> current.setName(data);
+                case ORIGIN -> current.setOrigin(Origin.valueOf(convertToXMLTag(data)));
+                case SOIL -> current.setSoil(Soil.valueOf(convertToXMLTag(data)));
+                case STEM_COLOR -> current.getVisualParameter().setStemColor(Color.valueOf(convertToXMLTag(data)));
+                case LEAF_COLOR -> current.getVisualParameter().setLeafColor(Color.valueOf(convertToXMLTag(data)));
+                case AVERAGE_SIZE -> current.getVisualParameter().setAverageSize(Integer.parseInt(data));
+                case TEMPERATURE -> current.getGrowingTip().setTemperature(Integer.parseInt(data));
+                case LIGHT -> current.getGrowingTip().setLight(Boolean.parseBoolean(data));
+                case WATERING -> current.getGrowingTip().setWatering(Integer.parseInt(data));
+                case MULTIPLYING -> current.setMultiplying(Multiplying.valueOf(convertToXMLTag(data)));
+                case STEM_LENGTH -> {
+                    CutFlower currentCutFlower = (CutFlower) current;
+                    currentCutFlower.setStemLength(Integer.parseInt(data));
+                }
+                case CUT_DATE -> {
+                    CutFlower currentCutFlower = (CutFlower) current;
+                    currentCutFlower.setCutDate(LocalDate.parse(data));
+                }
+                case PLANTING_DATE -> {
+                    PottedFlower currentPottedFlower = (PottedFlower) current;
+                    currentPottedFlower.setPlantingDate(LocalDate.parse(data));
+                }
                 default -> throw new EnumConstantNotPresentException(currentXmlTag.getDeclaringClass(), currentXmlTag.name());
             }
         }
         currentXmlTag = null;
+    }
+
+    private String convertToXMLTag(String name) {
+        return name.toUpperCase()
+                .replaceAll(CHAR_TO_REPLACE, NEW_CHAR);
     }
 }

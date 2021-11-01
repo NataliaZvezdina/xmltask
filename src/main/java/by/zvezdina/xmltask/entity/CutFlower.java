@@ -81,7 +81,7 @@ public class CutFlower extends Flower {
         sb.append("\nMultiplying: ").append(getMultiplying());
         sb.append("\nCut date: ").append(getCutDate());
         sb.append("\nDecorated: ").append(isDecorated());
-        sb.append("\nStem length: ").append(getStemLength()).append("\\n");
+        sb.append("\nStem length: ").append(getStemLength()).append("\n");
 
         return sb.toString();
     }

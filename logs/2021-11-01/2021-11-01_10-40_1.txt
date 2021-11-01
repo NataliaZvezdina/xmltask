@@ -1,8 +1,8 @@
-2021-11-01 11:20:03 [main] [endElement] [67] INFO  by.zvezdina.xmltask.builder.FlowerHandler - Built flower: 
+2021-11-01 10:40:01 [main] [endElement] [70] INFO  by.zvezdina.xmltask.builder.FlowerHandler - Built cut flower: 
 Flower: cut flower
 Name: Chrysanthemum
 Id: id1
-Origin: SOUTH_AMERICA
+Origin: null
 Soil: GROUND
 Visual parameters: 
 	Stem color: GREEN
@@ -15,13 +15,12 @@ Growing tips:
 Multiplying: SEED
 Cut date: 2021-10-28
 Decorated: true
-Stem length: 45
-
-2021-11-01 11:20:03 [main] [endElement] [67] INFO  by.zvezdina.xmltask.builder.FlowerHandler - Built flower: 
+Stem length: 45\n
+2021-11-01 10:40:01 [main] [endElement] [67] INFO  by.zvezdina.xmltask.builder.FlowerHandler - Built potted flower: 
 Flower: potted flower
 Name: Kalanchoe manginii
 Id: id2
-Origin: AFRICA
+Origin: null
 Soil: GLEY
 Visual parameters: 
 	Stem color: MAGENTA
@@ -32,5 +31,4 @@ Growing tips:
 	Light: true
 	Watering: 400
 Multiplying: CUTTING
-Planting date: 2021-03-10
-
+Planting date: 2021-03-10\n

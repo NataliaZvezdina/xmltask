@@ -1,4 +1,4 @@
-2021-11-01 11:20:03 [main] [endElement] [67] INFO  by.zvezdina.xmltask.builder.FlowerHandler - Built flower: 
+2021-11-01 10:59:00 [main] [endElement] [70] INFO  by.zvezdina.xmltask.builder.FlowerHandler - Built cut flower: 
 Flower: cut flower
 Name: Chrysanthemum
 Id: id1
@@ -17,7 +17,7 @@ Cut date: 2021-10-28
 Decorated: true
 Stem length: 45
 
-2021-11-01 11:20:03 [main] [endElement] [67] INFO  by.zvezdina.xmltask.builder.FlowerHandler - Built flower: 
+2021-11-01 10:59:00 [main] [endElement] [67] INFO  by.zvezdina.xmltask.builder.FlowerHandler - Built potted flower: 
 Flower: potted flower
 Name: Kalanchoe manginii
 Id: id2
